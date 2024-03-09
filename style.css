@@ -1,0 +1,17 @@
+#canvas {
+    background-color: deepskyblue;
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    width: 960px;
+    height: auto;
+}
+
+#canvas div .pixel {
+    color: rgb(20, 75, 4);
+    border: 1px solid #000;
+    margin-top: -1px;
+    margin-left: -1px;
+    flex: auto;
+    box-sizing: border-box;
+}
