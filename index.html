@@ -6,36 +6,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Etch-a-Sketch</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
 </head>
 
 <body>
+    <div id="header">
+        
+        <span id="headerTitle">Etch-a-Sketch</span>
+        <span id="headerCredits">Built by <a href="https://github.com/ruizterce/">ruizterce</a></span>
 
-    <div id="menu">
-        <div id="resize">
-            <div class="column">
-                <div class="container">
-                    <span>Size</span>
-                    <input title="Enter desired canvas screen size in pixels per side" type="text" id="size"
-                        maxlength="4">
-                </div>
-                <div class="container">
-                    <span>Res</span>
-                    <input title="Enter desired canvas resolution in number of squares per side" type="text"
-                        id="resolution" maxlength="2">
-                </div>
-            </div>
-            <div class="column">
-                <div id="resizeBtn" class="menuBtn">Resize</div>
-            </div>
-
-        </div>
-        <div id="clearBtn" class="menuBtn">Clear</div>
-        <div id="rainbowBtn" class="menuBtn">Rainbow</div>
 
     </div>
 
-    <!-- Div #canvas contains the drawing area-->
-    <div id="canvas"></div>
+    <div id="bodyContainer">
+
+        <div id="menu">
+            <div id="resize">
+                <div class="column">
+                    <div class="container">
+                        <span>Size</span>
+                        <input title="Enter desired canvas screen size in pixels per side" type="text" id="size"
+                            maxlength="4">
+                    </div>
+                    <div class="container">
+                        <span>Res</span>
+                        <input title="Enter desired canvas resolution in number of squares per side" type="text"
+                            id="resolution" maxlength="2">
+                    </div>
+                </div>
+                <div class="column">
+                    <div id="resizeBtn" class="menuBtn">Resize</div>
+                </div>
+
+            </div>
+            <div id="clearBtn" class="menuBtn">Clear</div>
+            <div id="rainbowBtn" class="menuBtn">Rainbow</div>
+
+        </div>
+
+        <!-- Div #canvas contains the drawing area-->
+        <div id="canvas"></div>
+
+    </div>
 
     <script src="script.js"></script>
 </body>

@@ -3,14 +3,59 @@ html {
 }
 
 body {
-    display: flex;
+    background-color: rgba(0, 191, 255, 0.473);
     margin: 0px;
-    width: 100%;
-    height: 100%;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: medium;
     font-weight: 700;
     color: white;
+}
+
+#header {
+    background-color: deepskyblue;
+    border-bottom: 1px solid white;
+    padding: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    position:fixed;
+    z-index: 1;
+    width: 99%;
+}
+
+#headerTitle {
+    font-family: "Luckiest Guy", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 30px;
+    text-shadow: -2px 2px #ff00b3;
+    flex: 1 1 90%;
+    text-align: center;
+    margin-bottom: -7px;
+}
+
+#headerCredits {
+    flex: 1 1 15%;
+    text-align: end;
+}
+
+#headerCredits>a {
+    color: white;
+    text-shadow: -1px 1px #ff00b3;
+    font-weight: 900;
+    font-size: large;
+}
+
+
+
+
+#bodyContainer {
+    display: flex;
+    margin: 0px;
+    width: 100%;
+    height: 100%;
+
+
 }
 
 #canvas {
@@ -20,7 +65,7 @@ body {
     display: flex;
     justify-content: center;
     flex-wrap: nowrap;
-    margin: 1px 1px 1px 101px;
+    margin: 40px 1px 1px 101px;
 }
 
 #canvas:hover {
@@ -28,7 +73,6 @@ body {
 }
 
 #canvas div .pixel {
-    color: rgb(20, 75, 4);
     border: 1px solid #000;
     margin-top: -1px;
     margin-left: -1px;
@@ -42,6 +86,7 @@ body {
     flex: 0;
     background-color: deepskyblue;
     position: fixed;
+    margin-top: 40px;
     margin-right: -1px;
     border-right: 1px solid #ffffff;
 }
