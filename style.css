@@ -32,11 +32,13 @@ body {
     flex: 1 1 90%;
     text-align: center;
     margin-bottom: -7px;
+    min-width: 210px;
 }
 
 #headerCredits {
-    flex: 1 1 15%;
+    flex: 0 0 15%;
     text-align: end;
+    min-width: 140px;
 }
 
 #headerCredits>a {
