@@ -4,6 +4,7 @@ const resizeBtn = document.querySelector('#resizeBtn');
 const changeResolutionBtn = document.querySelector('#changeResolutionBtn');
 const rainbowBtn = document.querySelector('#rainbowBtn');
 let rainbow = false;
+let mouseClicked = false;
 
 document.querySelector('#size').value = 960;
 document.querySelector('#resolution').value = 16;
@@ -36,19 +37,31 @@ function createCanvas(size, resolution) {
     };
 };
 
-//Event listener to implement drawing on canvas' pixels
+//Event listeners to implement drawing on canvas' pixels
+
+document.addEventListener('mousedown', () => {
+    mouseClicked = true;
+});
+
+document.addEventListener('mouseup', () => {
+    mouseClicked = false;
+});
+
+
 canvas.addEventListener('mouseover', (e) => {
-    let color;
-    if (rainbow) {
-        let randomColor = Math.round(0xffffff * Math.random()).toString(16);
-        color = "#" + randomColor;
+    if (mouseClicked) {
+        let color;
+        if (rainbow) {
+            let randomColor = Math.round(0xffffff * Math.random()).toString(16);
+            color = "#" + randomColor;
 
-    } else {
-        color = 'orange';
-    };
+        } else {
+            color = 'orange';
+        };
 
-    if (e.target.className === 'pixel') {
-        e.target.style.backgroundColor = color;
+        if (e.target.className === 'pixel') {
+            e.target.style.backgroundColor = color;
+        };
     };
 });
 
