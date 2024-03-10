@@ -5,7 +5,9 @@ const changeResolutionBtn = document.querySelector('#changeResolutionBtn');
 const rainbowBtn = document.querySelector('#rainbowBtn');
 const paintColorBtn = document.querySelector('#paintColorBtn');
 const bgColorBtn = document.querySelector('#bgColorBtn');
+const eraseBtn = document.querySelector('#eraseBtn');
 let rainbow = false;
+let erase = false;
 let mouseClicked = false;
 let paintColor = 'orange';
 let bgColor = '#00bfff';
@@ -45,7 +47,10 @@ function createCanvas(size, resolution) {
 
 function paint(e) {
     let color;
-    if (rainbow) {
+
+    if (erase) {
+        color = bgColor;
+    } else if (rainbow) {
         let randomColor = Math.round(0xffffff * Math.random()).toString(16);
         color = "#" + randomColor;
 
@@ -108,7 +113,6 @@ clearBtn.addEventListener('click', () => {
 
 function toggleRainbow() {
     rainbow = !rainbow;
-    console.log(rainbow);
 };
 
 rainbowBtn.addEventListener('click', () => {
@@ -121,12 +125,31 @@ rainbowBtn.addEventListener('click', () => {
     }
 });
 
+//Toggle erase mode
+
+function toggleErase() {
+    erase = !erase;
+};
+
+eraseBtn.addEventListener('click', () => {
+    toggleErase();
+
+    if (erase) {
+        eraseBtn.style.background = 'white';
+        eraseBtn.style.color = 'deepskyblue';
+
+    } else {
+        eraseBtn.style.background = '';
+        eraseBtn.style.color = '';
+    }
+});
+
 //Change paint color
 paintColorBtn.addEventListener('change', (e) => {
     paintColor = e.target.value;
 }, false);
 
-//CHange background color, only if the pixel is not painted
+//Change background color, only if the pixel is not painted
 bgColorBtn.addEventListener('change', (e) => {
     let oldBgColor = bgColor;
     bgColor = e.target.value;
