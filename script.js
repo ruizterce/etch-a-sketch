@@ -3,8 +3,12 @@ const canvas = document.querySelector('#canvas');
 const resizeBtn = document.querySelector('#resizeBtn');
 const changeResolutionBtn = document.querySelector('#changeResolutionBtn');
 const rainbowBtn = document.querySelector('#rainbowBtn');
+const paintColorBtn = document.querySelector('#paintColorBtn');
+const bgColorBtn = document.querySelector('#bgColorBtn');
 let rainbow = false;
 let mouseClicked = false;
+let paintColor = 'orange';
+let bgColor = '#00bfff';
 
 document.querySelector('#size').value = 960;
 document.querySelector('#resolution').value = 16;
@@ -26,14 +30,14 @@ function createCanvas(size, resolution) {
     };
     //Adjust #canvas div element size
     canvas.setAttribute('style', 'width:' + (size) + 'px; height:' + (size) + 'px;');
+    paint
 
-
-    //Adapt pixel size to canvas size via inline css
+    //Adapt pixel size to canvas size and apply background color
     let pixels = canvas.querySelectorAll('.pixel');
 
     for (let i = 0; i < pixels.length; i++) {
         let pixel = pixels[i];
-        pixel.setAttribute('style', 'width:' + (1 + size / resolution) + 'px; height:' + (1 + size / resolution) + 'px;');
+        pixel.setAttribute('style', 'width:' + (1 + size / resolution) + 'px; height:' + (1 + size / resolution) + 'px; background-color:' + bgColor + ';');
     };
 };
 
@@ -46,7 +50,7 @@ function paint(e) {
         color = "#" + randomColor;
 
     } else {
-        color = 'orange';
+        color = paintColor;
     };
 
     if (e.target.className === 'pixel') {
@@ -91,7 +95,7 @@ function clearCanvas() {
     let pixels = canvas.querySelectorAll('.pixel');
     for (let i = 0; i < pixels.length; i++) {
         let pixel = pixels[i];
-        pixel.style.backgroundColor = 'deepskyblue';
+        pixel.style.backgroundColor = bgColor;
     };
 };
 
@@ -116,4 +120,46 @@ rainbowBtn.addEventListener('click', () => {
         rainbowBtn.style.background = '';
     }
 });
+
+//Change paint color
+paintColorBtn.addEventListener('change', (e) => {
+    paintColor = e.target.value;
+}, false);
+
+//CHange background color, only if the pixel is not painted
+bgColorBtn.addEventListener('change', (e) => {
+    let oldBgColor = bgColor;
+    bgColor = e.target.value;
+
+    //Functions to transform rgb to hex
+    function componentToHex(c) {
+        let hex = c.toString(16);
+        return hex.length == 1 ? "0" + hex : hex;
+    }
+
+    function rgbToHex(r, g, b) {
+        return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+    }
+
+    //Iterate through unpainted pixels
+    let pixels = canvas.querySelectorAll('.pixel');
+    for (let i = 0; i < pixels.length; i++) {
+
+        let pixel = pixels[i];
+
+        //Check that pixel backgroundColor is in rgb(r, g, b) format and separate components
+        if (pixel.style.backgroundColor.charAt(0) === "r") {
+            let r = parseInt(pixel.style.backgroundColor.split(",")[0].replace("rgb(", ""));
+            let g = parseInt(pixel.style.backgroundColor.split(",")[1].replace(" ", ""));
+            let b = parseInt(pixel.style.backgroundColor.split(",")[2].replace(" ", "").replace(")", ""));
+
+            //Convert pixel color to Hex, compare to old color. If it's equal, replace with new color
+            if (rgbToHex(r, g, b) === oldBgColor) {
+                pixel.style.backgroundColor = bgColor;
+            };
+        };
+    };
+
+}, false);
+
 

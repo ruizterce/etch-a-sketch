@@ -18,7 +18,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    position:fixed;
+    position: fixed;
     z-index: 1;
     width: 99%;
 }
@@ -73,7 +73,7 @@ body {
 }
 
 #canvas div .pixel {
-    border: 1px solid #000;
+    border: 1px solid #ffffff;
     margin-top: -1px;
     margin-left: -1px;
     flex: auto;
@@ -138,4 +138,10 @@ body {
     align-items: center;
     justify-content: center;
 
+}
+
+#paintColorBtn,
+#bgColorBtn {
+    block-size: 84px;
+    inline-size: 84px;
 }
