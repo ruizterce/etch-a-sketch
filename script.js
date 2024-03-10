@@ -37,10 +37,26 @@ function createCanvas(size, resolution) {
     };
 };
 
-//Event listeners to implement drawing on canvas' pixels
+//Function and event listeners to implement drawing on canvas' pixels
 
-document.addEventListener('mousedown', () => {
+function paint(e) {
+    let color;
+    if (rainbow) {
+        let randomColor = Math.round(0xffffff * Math.random()).toString(16);
+        color = "#" + randomColor;
+
+    } else {
+        color = 'orange';
+    };
+
+    if (e.target.className === 'pixel') {
+        e.target.style.backgroundColor = color;
+    };
+};
+
+document.addEventListener('mousedown', (e) => {
     mouseClicked = true;
+    paint(e);
 });
 
 document.addEventListener('mouseup', () => {
@@ -49,25 +65,13 @@ document.addEventListener('mouseup', () => {
 
 
 canvas.addEventListener('mouseover', (e) => {
+
     if (mouseClicked) {
-        let color;
-        if (rainbow) {
-            let randomColor = Math.round(0xffffff * Math.random()).toString(16);
-            color = "#" + randomColor;
-
-        } else {
-            color = 'orange';
-        };
-
-        if (e.target.className === 'pixel') {
-            e.target.style.backgroundColor = color;
-        };
+        paint(e);
     };
 });
 
 //Delete all elements in canvas and create again with the desired size and resolution specified in text input elements.
-
-
 
 function resizeCanvas() {
     size = document.querySelector('#size').value;
@@ -82,6 +86,7 @@ resizeBtn.addEventListener('click', () => {
     resizeCanvas();
 });
 
+// Reset pixels' color to default
 function clearCanvas() {
     let pixels = canvas.querySelectorAll('.pixel');
     for (let i = 0; i < pixels.length; i++) {
@@ -93,6 +98,9 @@ function clearCanvas() {
 clearBtn.addEventListener('click', () => {
     clearCanvas();
 });
+
+
+//Toggle rainbow mode
 
 function toggleRainbow() {
     rainbow = !rainbow;
