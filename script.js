@@ -2,6 +2,8 @@
 const canvas = document.querySelector('#canvas');
 const resizeBtn = document.querySelector('#resizeBtn');
 const changeResolutionBtn = document.querySelector('#changeResolutionBtn');
+const rainbowBtn = document.querySelector('#rainbowBtn');
+let rainbow = false;
 
 document.querySelector('#size').value = 960;
 document.querySelector('#resolution').value = 16;
@@ -27,7 +29,6 @@ function createCanvas(size, resolution) {
 
     //Adapt pixel size to canvas size via inline css
     let pixels = canvas.querySelectorAll('.pixel');
-    console.log(pixels.length);
 
     for (let i = 0; i < pixels.length; i++) {
         let pixel = pixels[i];
@@ -37,9 +38,18 @@ function createCanvas(size, resolution) {
 
 //Event listener to implement drawing on canvas' pixels
 canvas.addEventListener('mouseover', (e) => {
+    let color;
+    if (rainbow) {
+        let randomColor = Math.round(0xffffff * Math.random()).toString(16);
+        color = "#" + randomColor;
+
+    } else {
+        color = 'orange';
+    };
+
     if (e.target.className === 'pixel') {
-        e.target.style.backgroundColor = 'orange';
-    }
+        e.target.style.backgroundColor = color;
+    };
 });
 
 //Delete all elements in canvas and create again with the desired size and resolution specified in text input elements.
@@ -57,5 +67,32 @@ function resizeCanvas() {
 
 resizeBtn.addEventListener('click', () => {
     resizeCanvas();
+});
+
+function clearCanvas() {
+    let pixels = canvas.querySelectorAll('.pixel');
+    for (let i = 0; i < pixels.length; i++) {
+        let pixel = pixels[i];
+        pixel.style.backgroundColor = 'deepskyblue';
+    };
+};
+
+clearBtn.addEventListener('click', () => {
+    clearCanvas();
+});
+
+function toggleRainbow() {
+    rainbow = !rainbow;
+    console.log(rainbow);
+};
+
+rainbowBtn.addEventListener('click', () => {
+    toggleRainbow();
+
+    if (rainbow) {
+        rainbowBtn.style.background = 'linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(255,252,0,1) 16%, rgba(0,255,0,1) 32%, rgba(0,255,248,1) 48%, rgba(0,0,255,1) 64%, rgba(255,0,241,1) 80%, rgba(255,0,0,1) 100%)';
+    } else {
+        rainbowBtn.style.background = '';
+    }
 });
 

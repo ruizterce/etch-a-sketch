@@ -9,6 +9,8 @@ body {
     height: 100%;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: medium;
+    font-weight: 700;
+    color: white;
 }
 
 #canvas {
@@ -18,7 +20,11 @@ body {
     display: flex;
     justify-content: center;
     flex-wrap: nowrap;
-    margin: 1px;
+    margin: 1px 1px 1px 101px;
+}
+
+#canvas:hover {
+    cursor: crosshair;
 }
 
 #canvas div .pixel {
@@ -31,30 +37,47 @@ body {
 }
 
 #menu {
-    padding: 8px;
-    width: 80px;
+    height: 100%;
+    width: 100px;
     flex: 0;
     background-color: deepskyblue;
+    position: fixed;
+    margin-right: -1px;
+    border-right: 1px solid #ffffff;
+}
+
+#menu>* {
+    border-bottom: 1px solid #ffffff;
+    box-sizing: border-box;
+}
+
+.menuBtn {
+    padding: 8px;
+    text-align: center;
+}
+
+.menuBtn:hover {
+    color: deepskyblue;
+    background-color: white;
 }
 
 #resize {
     display: flex;
-    justify-content: start;
-    align-items: center;
 }
 
 #resize .column {
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 
-#resize>* {
-    color: white;
-    flex: 0;
-    font-weight: 700;
+#resize .column>* {
+    box-sizing: border-box;
+    padding: 8px 8px 0px 8px;
+}
+
+#resolution {
+    margin-bottom: 8px;
 }
 
 #resize input {
@@ -63,21 +86,11 @@ body {
 
 #resizeBtn {
     writing-mode: vertical-lr;
-    margin-left: 8px;
-    color: white;
-    border-radius: 3px;
-    display: block;
-    border: 1px solid #000;
-    font-weight: 700;
-    font-size: large;
-    box-shadow: 0px 0px 14px -7px #f09819;
-    background-color: deepskyblue;
+    border-left: 1px dotted #ffffff;
     background-size: 200% auto;
     flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-}
-
-#resizeBtn:hover {
-    color: deepskyblue;
-    background-color: white;
 }
