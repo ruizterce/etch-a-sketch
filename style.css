@@ -80,6 +80,7 @@ body {
     margin-left: -1px;
     flex: auto;
     box-sizing: border-box;
+    font-size: 0;
 }
 
 #menu {
@@ -140,6 +141,10 @@ body {
     align-items: center;
     justify-content: center;
 
+}
+
+#penSizeBtn {
+    width: 60px;
 }
 
 #paintColorBtn,

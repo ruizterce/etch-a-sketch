@@ -3,14 +3,17 @@ const canvas = document.querySelector('#canvas');
 const resizeBtn = document.querySelector('#resizeBtn');
 const changeResolutionBtn = document.querySelector('#changeResolutionBtn');
 const rainbowBtn = document.querySelector('#rainbowBtn');
+const penSizeBtn = document.querySelector('#penSizeBtn');
 const paintColorBtn = document.querySelector('#paintColorBtn');
 const bgColorBtn = document.querySelector('#bgColorBtn');
 const eraseBtn = document.querySelector('#eraseBtn');
+let resolution = 16;
 let rainbow = false;
 let erase = false;
 let mouseClicked = false;
 let paintColor = 'orange';
 let bgColor = '#00bfff';
+let penSize = 1;
 
 document.querySelector('#size').value = 960;
 document.querySelector('#resolution').value = 16;
@@ -40,6 +43,7 @@ function createCanvas(size, resolution) {
     for (let i = 0; i < pixels.length; i++) {
         let pixel = pixels[i];
         pixel.setAttribute('style', 'width:' + (1 + size / resolution) + 'px; height:' + (1 + size / resolution) + 'px; background-color:' + bgColor + ';');
+        pixel.textContent = i; //Debug
     };
 };
 
@@ -60,6 +64,38 @@ function paint(e) {
 
     if (e.target.className === 'pixel') {
         e.target.style.backgroundColor = color;
+
+        //Look for adjacent pixels to paint
+        if (penSize > 1) {
+            let pixels = canvas.querySelectorAll('.pixel');
+            for (let i = 0; i < pixels.length; i++) {
+
+                //Check adjacent pixels for penSize 2
+                if (parseInt(pixels[i].textContent) === parseInt(e.target.textContent) + resolution ||
+                    parseInt(pixels[i].textContent) === parseInt(e.target.textContent) - resolution ||
+                    parseInt(pixels[i].textContent) === parseInt(e.target.textContent) + 1 ||
+                    parseInt(pixels[i].textContent) === parseInt(e.target.textContent) - 1) {
+                    pixels[i].style.backgroundColor = color;
+                };
+
+                //Check adjacent pixels for penSize 3
+                if (parseInt(penSize) === 3) {
+                    if (parseInt(pixels[i].textContent) === parseInt(e.target.textContent) + resolution * 2 ||
+                        parseInt(pixels[i].textContent) === parseInt(e.target.textContent) - resolution * 2 ||
+                        parseInt(pixels[i].textContent) === parseInt(e.target.textContent) + resolution + 1 ||
+                        parseInt(pixels[i].textContent) === parseInt(e.target.textContent) + resolution - 1 ||
+                        parseInt(pixels[i].textContent) === parseInt(e.target.textContent) - resolution + 1 ||
+                        parseInt(pixels[i].textContent) === parseInt(e.target.textContent) - resolution - 1 ||
+                        parseInt(pixels[i].textContent) === parseInt(e.target.textContent) + 2 ||
+                        parseInt(pixels[i].textContent) === parseInt(e.target.textContent) - 2) {
+                        pixels[i].style.backgroundColor = color;
+                    };
+
+                }
+
+            };
+        };
+
     };
 };
 
@@ -83,12 +119,20 @@ canvas.addEventListener('mouseover', (e) => {
 //Delete all elements in canvas and create again with the desired size and resolution specified in text input elements.
 
 function resizeCanvas() {
-    size = document.querySelector('#size').value;
-    resolution = document.querySelector('#resolution').value;
-    for (let i = 0; i < canvas.querySelectorAll('div').length; i++) {
-        canvas.removeChild(canvas.lastChild);
-    }
-    createCanvas(size, resolution);
+
+    if (parseInt(document.querySelector('#resolution').value) > 64) {
+        alert('Max resolution is 64');
+        document.querySelector('#resolution').value = resolution;
+        document.querySelector('#size').value = size;
+    } else {
+        size = document.querySelector('#size').value;
+        resolution = parseInt(document.querySelector('#resolution').value);
+        for (let i = 0; i < canvas.querySelectorAll('div').length; i++) {
+            canvas.removeChild(canvas.lastChild);
+        };
+        createCanvas(size, resolution);
+    };
+
 };
 
 resizeBtn.addEventListener('click', () => {
@@ -143,6 +187,12 @@ eraseBtn.addEventListener('click', () => {
         eraseBtn.style.color = '';
     }
 });
+
+//Change pen size
+
+penSizeBtn.addEventListener('input', (e) => {
+    penSize = e.target.value;
+})
 
 //Change paint color
 paintColorBtn.addEventListener('change', (e) => {
