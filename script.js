@@ -8,6 +8,7 @@ const paintColor = document.querySelector('#paintColor');
 const paintColorBtn = document.querySelector('#paintColorBtn');
 const bgColorBtn = document.querySelector('#bgColorBtn');
 const eraseBtn = document.querySelector('#eraseBtn');
+const gridBtn = document.querySelector('#gridBtn');
 let resolution = 16;
 let rainbow = false;
 let erase = false;
@@ -15,9 +16,13 @@ let mouseClicked = false;
 let penColor = 'orange';
 let bgColor = '#00bfff';
 let penSize = 1;
+let grid = false;
 
 document.querySelector('#size').value = 960;
 document.querySelector('#resolution').value = 16;
+
+
+
 createCanvas(960, 16);
 
 //Create divs in canvas area with the given resolution
@@ -44,8 +49,9 @@ function createCanvas(size, resolution) {
     for (let i = 0; i < pixels.length; i++) {
         let pixel = pixels[i];
         pixel.setAttribute('style', 'width:' + (1 + size / resolution) + 'px; height:' + (1 + size / resolution) + 'px; background-color:' + bgColor + ';');
-        pixel.textContent = i; //Debug
+        pixel.textContent = i;
     };
+    updateGrid();
 };
 
 //Function and event listeners to implement drawing on canvas' pixels
@@ -235,7 +241,40 @@ bgColorBtn.addEventListener('change', (e) => {
             };
         };
     };
-
+    updateGrid();
 }, false);
 
+//Show or hide grid
+function toggleGrid() {
+    grid = !grid;
+    updateGrid();
+};
 
+function updateGrid() {
+    let pixels = canvas.querySelectorAll('.pixel');
+    for (let i = 0; i < pixels.length; i++) {
+
+        let pixel = pixels[i];
+        if (grid) {
+            pixel.style.border = '1px solid white';
+        } else {
+            pixel.style.border = '1px solid ' + bgColor;
+        }
+    }
+}
+
+gridBtn.addEventListener('click', () => {
+    toggleGrid();
+
+    if (grid) {
+        gridBtn.style.background = 'white';
+        gridBtn.style.color = 'deepskyblue';
+
+    } else {
+        gridBtn.style.background = '';
+        gridBtn.style.color = '';
+    }
+});
+
+//Toggle on program init
+gridBtn.click();
