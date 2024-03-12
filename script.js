@@ -4,6 +4,7 @@ const resizeBtn = document.querySelector('#resizeBtn');
 const changeResolutionBtn = document.querySelector('#changeResolutionBtn');
 const rainbowBtn = document.querySelector('#rainbowBtn');
 const penSizeBtn = document.querySelector('#penSizeBtn');
+const paintColor = document.querySelector('#paintColor');
 const paintColorBtn = document.querySelector('#paintColorBtn');
 const bgColorBtn = document.querySelector('#bgColorBtn');
 const eraseBtn = document.querySelector('#eraseBtn');
@@ -11,7 +12,7 @@ let resolution = 16;
 let rainbow = false;
 let erase = false;
 let mouseClicked = false;
-let paintColor = 'orange';
+let penColor = 'orange';
 let bgColor = '#00bfff';
 let penSize = 1;
 
@@ -59,7 +60,7 @@ function paint(e) {
         color = "#" + randomColor;
 
     } else {
-        color = paintColor;
+        color = penColor;
     };
 
     if (e.target.className === 'pixel') {
@@ -164,8 +165,10 @@ rainbowBtn.addEventListener('click', () => {
 
     if (rainbow) {
         rainbowBtn.style.background = 'linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(255,252,0,1) 16%, rgba(0,255,0,1) 32%, rgba(0,255,248,1) 48%, rgba(0,0,255,1) 64%, rgba(255,0,241,1) 80%, rgba(255,0,0,1) 100%)';
+        paintColor.style.background = 'linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(255,252,0,1) 16%, rgba(0,255,0,1) 32%, rgba(0,255,248,1) 48%, rgba(0,0,255,1) 64%, rgba(255,0,241,1) 80%, rgba(255,0,0,1) 100%)';
     } else {
         rainbowBtn.style.background = '';
+        paintColor.style.background = '';
     }
 });
 
@@ -196,7 +199,7 @@ penSizeBtn.addEventListener('input', (e) => {
 
 //Change paint color
 paintColorBtn.addEventListener('change', (e) => {
-    paintColor = e.target.value;
+    penColor = e.target.value;
 }, false);
 
 //Change background color, only if the pixel is not painted
